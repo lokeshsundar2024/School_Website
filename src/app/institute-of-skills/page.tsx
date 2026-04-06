@@ -27,7 +27,7 @@ const InstituteOfSkillsPage = () => {
                 Preparing for the Future
               </h2>
               <p className="text-gray-600 mb-6 text-lg">
-                The St. Joseph's Institute of Skills (SJIS) at Briand Square is
+                The St. Joseph&apos;s Institute of Skills (SJIS) at Briand Square is
                 a dedicated wing of our institution focused on vocational and
                 technical excellence. We believe that modern education must
                 include practical skills that empower students to innovate and
@@ -50,8 +50,7 @@ const InstituteOfSkillsPage = () => {
               </div>
             </div>
             <div className="relative h-[450px] rounded-3xl overflow-hidden shadow-2xl border-8 border-white">
-              <Image
-                src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&w=800&q=80"
+              <Image  src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&w=800&q=80"
                 alt="Technical skills training"
                 fill
                 className="object-cover"
