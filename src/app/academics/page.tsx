@@ -122,7 +122,7 @@ const AcademicsPage = () => {
         "Computer Science",
       ],
       image:
-        "https://images.unsplash.com/photo-1454165833767-027ffea9e78b?q=80&w=2070&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1511632765486-a01980e01a18?q=80&w=2070&auto=format&fit=crop",
       color: "rose",
     },
   ];

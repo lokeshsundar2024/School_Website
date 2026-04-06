@@ -4,7 +4,18 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import Timetable from "@/components/Timetable";
 
-const categoryData: Record<string, any> = {
+interface CategoryData {
+  title: string;
+  medium: string;
+  grades: string;
+  description: string;
+  curriculum: string[];
+  subjects: string[];
+  image: string;
+  color: string;
+}
+
+const categoryData: Record<string, CategoryData> = {
   "primary-english": {
     title: "Primary School",
     medium: "English Medium",
@@ -163,12 +174,18 @@ const categoryData: Record<string, any> = {
       "Computer Science",
     ],
     image:
-      "https://images.unsplash.com/photo-1454165833767-027ffea9e78b?q=80&w=2070&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1511632765486-a01980e01a18?q=80&w=2070&auto=format&fit=crop",
     color: "rose",
   },
 };
 
-const CategoryPage = async ({ params }: { params: { category: string } }) => {
+export async function generateStaticParams() {
+  return Object.keys(categoryData).map((category) => ({
+    category,
+  }));
+}
+
+const CategoryPage = async ({ params }: { params:Promise<{ category: string }> }) => {
   const { category } = await params;
   const data = categoryData[category];
 
@@ -197,7 +214,7 @@ const CategoryPage = async ({ params }: { params: { category: string } }) => {
 
   const bgClass = getColorClass(data.color).split(" ")[0];
   const textClass = getColorClass(data.color).split(" ")[1];
-  const borderClass = getColorClass(data.color).split(" ")[2];
+  // const borderClass = getColorClass(data.color).split(" ")[2];
 
   return (
     <div className="bg-gray-50 min-h-screen pb-20">

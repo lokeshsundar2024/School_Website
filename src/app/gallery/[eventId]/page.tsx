@@ -598,6 +598,12 @@ interface GalleryEventPageProps {
   params: Promise<{ eventId: string }>;
 }
 
+export async function generateStaticParams() {
+  return Object.keys(eventData).map((eventId) => ({
+    eventId,
+  }));
+}
+
 export default async function GalleryEventPage({
   params,
 }: GalleryEventPageProps) {
