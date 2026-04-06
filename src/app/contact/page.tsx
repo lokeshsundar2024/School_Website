@@ -1,6 +1,46 @@
-import React from "react";
+"use client";
+
+import React, { useState } from "react";
 
 const ContactPage = () => {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    subject: "",
+    message: "",
+  });
+  const [status, setStatus] = useState<string | null>(null);
+  const [isSending, setIsSending] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setIsSending(true);
+    setStatus(null);
+
+    try {
+      const res = await fetch("/api/send-email", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        setStatus(data.error || "Unable to send message. Please try again.");
+      } else {
+        setStatus("Your message has been sent successfully.");
+        setFormData({ name: "", email: "", subject: "", message: "" });
+      }
+    } catch {
+      setStatus("Unable to send message. Please try again later.");
+    } finally {
+      setIsSending(false);
+    }
+  };
+
   return (
     <div className="bg-gray-50 min-h-screen">
       {/* Header */}
@@ -134,15 +174,18 @@ const ContactPage = () => {
             <h3 className="text-2xl font-bold text-blue-900 mb-8">
               Send us a Message
             </h3>
-            <form className="space-y-6">
+            <form className="space-y-6" onSubmit={handleSubmit}>
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
                   Full Name
                 </label>
                 <input
                   type="text"
+                  value={formData.name}
+                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                   className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-blue-500 focus:border-blue-500 outline-none text-black"
                   placeholder="Your name"
+                  required
                 />
               </div>
               <div>
@@ -151,8 +194,11 @@ const ContactPage = () => {
                 </label>
                 <input
                   type="email"
+                  value={formData.email}
+                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                   className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-blue-500 focus:border-blue-500 outline-none text-black"
                   placeholder="your@email.com"
+                  required
                 />
               </div>
               <div>
@@ -161,8 +207,11 @@ const ContactPage = () => {
                 </label>
                 <input
                   type="text"
+                  value={formData.subject}
+                  onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
                   className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-blue-500 focus:border-blue-500 outline-none text-black"
                   placeholder="How can we help?"
+                  required
                 />
               </div>
               <div>
@@ -171,17 +220,24 @@ const ContactPage = () => {
                 </label>
                 <textarea
                   rows={4}
+                  value={formData.message}
+                  onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                   className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-blue-500 focus:border-blue-500 outline-none resize-none text-black"
                   placeholder="Write your message here..."
+                  required
                 ></textarea>
               </div>
               <button
                 type="submit"
-                className="w-full bg-blue-800 text-white font-bold py-4 rounded-xl hover:bg-blue-900 transition-all shadow-lg transform active:scale-95"
+                disabled={isSending}
+                className="w-full bg-blue-800 text-white font-bold py-4 rounded-xl hover:bg-blue-900 transition-all shadow-lg transform active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                Send Message
+                {isSending ? "Sending message..." : "Send Message"}
               </button>
             </form>
+            {status && (
+              <p className="mt-4 text-sm text-gray-700">{status}</p>
+            )}
           </div>
         </div>
       </div>
