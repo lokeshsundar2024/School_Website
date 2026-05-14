@@ -31,7 +31,7 @@ const AlumniPage = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-16 relative z-30 bg-white rounded-3xl shadow-xl p-8 md:p-12 border border-gray-100">
           <div className="text-center mb-16">
             <h2 className="text-3xl font-bold text-blue-900 mb-4">
-              Notable Alumni
+              Alumni Leadership Team
             </h2>
             <div className="w-20 h-1 bg-yellow-500 mx-auto" />
           </div>
