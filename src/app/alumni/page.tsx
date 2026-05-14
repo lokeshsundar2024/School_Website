@@ -106,7 +106,7 @@ const AlumniPage = () => {
 
                 role: "The Manager and the Chairperson (Ex-Officio)",
                 image:
-                  "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=400&q=80",
+                  "/FrDeepak.jpg",
               },
               {
                 name: "Nishi Chacko",
