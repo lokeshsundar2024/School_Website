@@ -18,9 +18,7 @@ const AlumniPage = () => {
               className="rounded-full border-4 border-white shadow-xl"
             />
           </div>
-          <h1 className="text-4xl md:text-5xl font-bold mb-6">
-            Alumni Trust
-          </h1>
+          <h1 className="text-4xl md:text-5xl font-bold mb-6">Alumni Trust</h1>
           <p className="text-xl text-blue-100 max-w-2xl mx-auto">
             Connecting generations of Josephites at Briand Square. Stay
             connected, give back, and celebrate our shared heritage.
@@ -41,65 +39,86 @@ const AlumniPage = () => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
             {[
               {
-                name: "John Doe",
+                name: "Joseph Hoover",
                 batch: "Class of 1995",
-                role: "CEO, Tech Corp",
+                role: "President",
                 image:
                   "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=400&q=80",
               },
               {
-                name: "Sarah Smith",
-                batch: "Class of 2002",
-                role: "Award-winning Author",
+                name: "Jagadeesh",
+                batch: "Class of 1993",
+                role: "Vice President",
                 image:
                   "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=400&q=80",
               },
               {
-                name: "Michael Chen",
-                batch: "Class of 2010",
-                role: "Social Entrepreneur",
+                name: "Arul Amalan D",
+                batch: "Class of 1998",
+                role: "General Secretary",
                 image:
                   "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=400&q=80",
               },
               {
-                name: "John Doe",
-                batch: "Class of 1995",
-                role: "CEO, Tech Corp",
+                name: "Loknath",
+                batch: "Class of 2017",
+                role: "Assistant Secretary",
                 image:
                   "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=400&q=80",
               },
               {
-                name: "Sarah Smith",
-                batch: "Class of 2002",
-                role: "Award-winning Author",
+                name: "Lokesh S",
+                batch: "Class of 1999",
+                role: "Treasurer",
                 image:
                   "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=400&q=80",
               },
               {
-                name: "Michael Chen",
+                name: "Gregory Maria Dennis",
                 batch: "Class of 2010",
-                role: "Social Entrepreneur",
+                role: "Assistant Treasurer",
                 image:
                   "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=400&q=80",
               },
               {
-                name: "John Doe",
-                batch: "Class of 1995",
-                role: "CEO, Tech Corp",
+                name: "Raja G.P",
+                batch: "Class of 1989",
+                role: "Executive Committee Member",
                 image:
                   "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=400&q=80",
               },
               {
-                name: "Sarah Smith",
-                batch: "Class of 2002",
-                role: "Award-winning Author",
+                name: "Puneet Mehta",
+                batch: "Class of 2006",
+                role: "Executive Committee Member",
                 image:
                   "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=400&q=80",
               },
               {
-                name: "Michael Chen",
+                name: "Dikshit U",
                 batch: "Class of 2010",
-                role: "Social Entrepreneur",
+                role: "Legal Advisor",
+                image:
+                  "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=400&q=80",
+              },
+              {
+                name: "Fr. Deepak Joseph Konganavar",
+
+                role: "The Manager and the Chairperson (Ex-Officio)",
+                image:
+                  "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=400&q=80",
+              },
+              {
+                name: "Nishi Chacko",
+
+                role: "High School Head Mistress and Member (Ex-Officio)",
+                image:
+                  "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=400&q=80",
+              },
+              {
+                name: "Shanthamma C",
+
+                role: "Middle School Head Mistress and Member (Ex-Officio)",
                 image:
                   "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=400&q=80",
               },
@@ -119,7 +138,9 @@ const AlumniPage = () => {
                 <p className="text-blue-600 font-medium text-sm mb-2">
                   {alumnus.batch}
                 </p>
-                <p className="text-gray-600 italic">&quot;{alumnus.role}&quot;</p>
+                <p className="text-gray-600 italic">
+                  &quot;{alumnus.role}&quot;
+                </p>
               </div>
             ))}
           </div>
