@@ -17,10 +17,64 @@ interface GalleryClientProps {
 export default function GalleryClient({ event }: GalleryClientProps) {
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [initialIndex, setInitialIndex] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const imagesPerPage = 20;
+  const totalPages = Math.ceil(event.images.length / imagesPerPage);
+  const startIndex = (currentPage - 1) * imagesPerPage;
+  const endIndex = startIndex + imagesPerPage;
+  const currentImages = event.images.slice(startIndex, endIndex);
 
   const openLightbox = (index: number) => {
-    setInitialIndex(index);
+    // Adjust index for the full image array
+    setInitialIndex(startIndex + index);
     setLightboxOpen(true);
+  };
+
+  const goToPage = (page: number) => {
+    setCurrentPage(page);
+  };
+
+  const goToPrevious = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
+
+  const goToNext = () => {
+    if (currentPage < totalPages) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
+
+  const getVisiblePages = () => {
+    const pages = [] as (number | string)[];
+    const maxButtons = 5;
+    const siblings = 1;
+
+    if (totalPages <= maxButtons + 2) {
+      return Array.from({ length: totalPages }, (_, idx) => idx + 1);
+    }
+
+    pages.push(1);
+
+    const left = Math.max(2, currentPage - siblings);
+    const right = Math.min(totalPages - 1, currentPage + siblings);
+
+    if (left > 2) {
+      pages.push("...");
+    }
+
+    for (let page = left; page <= right; page += 1) {
+      pages.push(page);
+    }
+
+    if (right < totalPages - 1) {
+      pages.push("...");
+    }
+
+    pages.push(totalPages);
+    return pages;
   };
 
   return (
@@ -81,17 +135,78 @@ export default function GalleryClient({ event }: GalleryClientProps) {
       {/* Photo Grid */}
       <section className="pb-24 px-4">
         <div className="max-w-7xl mx-auto">
+          {/* Pagination */}
+          {totalPages > 1 && (
+            <div className="mb-8 flex flex-wrap items-center justify-center gap-2">
+              <button
+                onClick={() => goToPage(1)}
+                disabled={currentPage === 1}
+                className="px-3 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-md hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                « First
+              </button>
+              <button
+                onClick={goToPrevious}
+                disabled={currentPage === 1}
+                className="px-3 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-md hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                ‹ Prev
+              </button>
+              {getVisiblePages().map((page, index) =>
+                page === "..." ? (
+                  <span
+                    key={`ellipsis-${index}`}
+                    className="px-3 py-2 text-sm font-medium text-gray-500"
+                  >
+                    …
+                  </span>
+                ) : (
+                  <button
+                    key={page}
+                    onClick={() => goToPage(page as number)}
+                    className={`px-3 py-2 text-sm font-medium rounded-md border ${
+                      page === currentPage
+                        ? "text-blue-600 bg-blue-50 border-blue-300"
+                        : "text-gray-500 bg-white border-gray-300 hover:bg-gray-50"
+                    }`}
+                  >
+                    {page}
+                  </button>
+                ),
+              )}
+              <button
+                onClick={goToNext}
+                disabled={currentPage === totalPages}
+                className="px-3 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-md hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                Next ›
+              </button>
+              <button
+                onClick={() => goToPage(totalPages)}
+                disabled={currentPage === totalPages}
+                className="px-3 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-md hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                Last »
+              </button>
+            </div>
+          )}
+
           <div className="columns-2 md:columns-4 lg:columns-5 gap-6 space-y-6">
-            {event.images.map((img, idx) => (
+            {currentImages.map((img, idx) => (
               <div
                 key={idx}
                 onClick={() => openLightbox(idx)}
                 className="relative break-inside-avoid rounded-2xl overflow-hidden shadow-sm group hover:shadow-xl transition-all cursor-pointer bg-gray-100"
               >
-                <img
+                <Image
                   src={img}
-                  alt={`${event.title} photo ${idx + 1}`}
+                  alt={`${event.title} photo ${startIndex + idx + 1}`}
+                  width={500}
+                  height={500}
+                  sizes="(min-width: 1024px) 20vw, (min-width: 768px) 25vw, 50vw"
+                  style={{ imageOrientation: "from-image" }}
                   className="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-105"
+                  priority
                 />
                 <div className="absolute inset-0 bg-black/20 group-hover:bg-black/0 transition-colors" />
                 <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
@@ -113,6 +228,12 @@ export default function GalleryClient({ event }: GalleryClientProps) {
                 </div>
               </div>
             ))}
+          </div>
+
+          {/* Image Count */}
+          <div className="mt-6 text-center text-gray-600">
+            Showing {startIndex + 1}-{Math.min(endIndex, event.images.length)}{" "}
+            of {event.images.length} photos
           </div>
         </div>
       </section>

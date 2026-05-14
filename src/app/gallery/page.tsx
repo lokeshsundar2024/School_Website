@@ -3,77 +3,88 @@
 import React, { useState, useMemo } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { eventData } from "./[eventId]/page";
 
 const events = [
-  {
-    id: "independence-day-2025",
-    title: "Independence Day 2025",
-    date: "Aug 15, 2025",
-    thumbnail: "/IndependenceDay.jpg",
-    count: 12,
-  },
+  // {
+  //   id: "independence-day-2025",
+  //   title: "Independence Day 2025",
+  //   date: "Aug 15, 2025",
+  //   thumbnail: "/IndependenceDay.jpg",
+  //   count: 12,
+  // },
   {
     id: "alumni-meet-2025",
     title: "Alumni Meet 2025",
     date: "May 01, 2025",
-    thumbnail:
-      "https://images.unsplash.com/photo-1511632765486-a01980e01a18?auto=format&fit=crop&w=800&q=80",
-    count: 18,
+    thumbnail: "/AM/DSC07666.webp",
+  },
+  // {
+  //   id: "republic-day-2025",
+  //   title: "Republic Day 2025",
+  //   date: "Jan 26, 2025",
+  //   thumbnail: "/republicDay.jpg",
+  //   count: 15,
+  // },
+  // {
+  //   id: "annual-day-2025",
+  //   title: "Annual Day 2025",
+  //   date: "Jan 20, 2025",
+  //   thumbnail:
+  //     "https://images.unsplash.com/photo-1511632765486-a01980e01a18?auto=format&fit=crop&w=800&q=80",
+  //   count: 12,
+  // },
+  // {
+  //   id: "sports-meet-2024",
+  //   title: "Sports Meet 2024",
+  //   date: "Dec 15, 2024",
+  //   thumbnail:
+  //     "https://images.unsplash.com/photo-1508341591423-4347099e1f19?auto=format&fit=crop&w=800&q=80",
+  //   count: 24,
+  // },
+  // {
+  //   id: "science-fair-2024",
+  //   title: "Science Fair 2024",
+  //   date: "Nov 10, 2024",
+  //   thumbnail:
+  //     "https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&w=800&q=80",
+  //   count: 18,
+  // },
+  // {
+  //   id: "art-exhibition-2024",
+  //   title: "Art Exhibition 2024",
+  //   date: "Oct 05, 2024",
+  //   thumbnail:
+  //     "https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?auto=format&fit=crop&w=800&q=80",
+  //   count: 15,
+  // },
+  // {
+  //   id: "graduation-2024",
+  //   title: "Graduation 2024",
+  //   date: "Aug 30, 2024",
+  //   thumbnail:
+  //     "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=800&q=80",
+  //   count: 30,
+  // },
+  // {
+  //   id: "cultural-fest-2024",
+  //   title: "Cultural Fest 2024",
+  //   date: "Jul 12, 2024",
+  //   thumbnail:
+  //     "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=800&q=80",
+  //   count: 22,
+  // },
+  {
+    id: "alumni-trust-inauguration-2026",
+    title: "Alumni Trust Inauguration April 2026",
+    date: "Apr 10, 2026",
+    thumbnail: "/AING/IMG_1985.webp",
   },
   {
-    id: "republic-day-2025",
-    title: "Republic Day 2025",
-    date: "Jan 26, 2025",
-    thumbnail: "/republicDay.jpg",
-    count: 15,
-  },
-  {
-    id: "annual-day-2025",
-    title: "Annual Day 2025",
-    date: "Jan 20, 2025",
-    thumbnail:
-      "https://images.unsplash.com/photo-1511632765486-a01980e01a18?auto=format&fit=crop&w=800&q=80",
-    count: 12,
-  },
-  {
-    id: "sports-meet-2024",
-    title: "Sports Meet 2024",
-    date: "Dec 15, 2024",
-    thumbnail:
-      "https://images.unsplash.com/photo-1508341591423-4347099e1f19?auto=format&fit=crop&w=800&q=80",
-    count: 24,
-  },
-  {
-    id: "science-fair-2024",
-    title: "Science Fair 2024",
-    date: "Nov 10, 2024",
-    thumbnail:
-      "https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&w=800&q=80",
-    count: 18,
-  },
-  {
-    id: "art-exhibition-2024",
-    title: "Art Exhibition 2024",
-    date: "Oct 05, 2024",
-    thumbnail:
-      "https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?auto=format&fit=crop&w=800&q=80",
-    count: 15,
-  },
-  {
-    id: "graduation-2024",
-    title: "Graduation 2024",
-    date: "Aug 30, 2024",
-    thumbnail:
-      "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=800&q=80",
-    count: 30,
-  },
-  {
-    id: "cultural-fest-2024",
-    title: "Cultural Fest 2024",
-    date: "Jul 12, 2024",
-    thumbnail:
-      "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=800&q=80",
-    count: 22,
+    id: "alumni-meet-2026",
+    title: "Alumni Meet 2026",
+    date: "May 1, 2026",
+    thumbnail: "/AM2026/IMG_5774.webp",
   },
 ];
 
@@ -192,11 +203,12 @@ const GalleryPage = () => {
                     alt={event.title}
                     fill
                     objectFit="contain"
+                    style={{ imageOrientation: "from-image" }}
                     className="object-cover transition-transform duration-500 group-hover:scale-110"
                   />
                   <div className="absolute inset-0 bg-blue-900/0 group-hover:bg-blue-900/20 transition-colors duration-500" />
                   <div className="absolute bottom-4 right-4 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-xs font-bold text-blue-900 shadow-sm">
-                    {event.count} Photos
+                    {eventData[event.id]?.images.length || 0} Photos
                   </div>
                 </div>
                 <div className="p-6">

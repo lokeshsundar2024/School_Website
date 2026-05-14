@@ -54,6 +54,10 @@ const ImageLightbox = ({
   }, [currentIndex]);
 
   useEffect(() => {
+    setCurrentIndex(initialIndex);
+  }, [initialIndex]);
+
+  useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "ArrowRight") handleNext();
       if (e.key === "ArrowLeft") handlePrev();
@@ -99,6 +103,10 @@ const ImageLightbox = ({
         className="flex-grow relative flex items-center justify-center p-4 md:p-12 select-none"
         onTouchStart={handleTouchStart}
         onTouchEnd={handleTouchEnd}
+        onClick={(e) => {
+          e.stopPropagation();
+          handleNext();
+        }}
       >
         <div className="relative w-full h-full max-w-6xl max-h-[70vh]">
           <Image
